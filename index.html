@@ -188,6 +188,34 @@
         font-size: 0.95rem;
         letter-spacing: 0.08em;
       }
+      .back-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 10;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        font-family: "Playfair Display", serif;
+        font-size: 0.9rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        transition:
+          transform 0.15s ease,
+          background 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.14);
+        border-color: rgba(255, 255, 255, 0.42);
+      }
+      .back-btn:active {
+        transform: scale(0.97);
+      }
       .dot.filled {
         background: #fff;
         border-color: #fff;
@@ -608,6 +636,14 @@
         text-transform: uppercase;
         margin-top: 4px;
       }
+      .count-date {
+        text-align: center;
+        color: #f3d8ff;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+        margin: 10px 0 18px;
+      }
 
       /* love message */
       .love-msg {
@@ -722,6 +758,8 @@
 
     <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
     <div id="main-content">
+      <button class="back-btn" id="back-btn" type="button">Back</button>
+
       <!-- Twinkling stars -->
       <div class="stars" id="stars"></div>
 
@@ -736,10 +774,6 @@
         <h1 class="hero-title">
           Happy <span>10th Monthsary</span>,<br />My Love
         </h1>
-        <p class="hero-subtitle">
-          Ten beautiful months of laughter, warmth, and love —<br />
-          each day sweeter than the last, because of you.
-        </p>
         <p class="scroll-hint">↓ scroll to explore ↓</p>
       </section>
 
@@ -748,6 +782,7 @@
         <div class="glass-card">
           <h2 class="sec-title">Our Time Together</h2>
           <div class="divider"><span class="divider-heart">♥</span></div>
+          <p class="count-date">July 15, 2025 → May 15, 2026</p>
           <div class="countdown-grid" id="countdown-grid">
             <div class="count-box">
               <div class="count-num" id="c-days">300</div>
@@ -764,62 +799,6 @@
             <div class="count-box">
               <div class="count-num" id="c-secs">0</div>
               <div class="count-label">Seconds</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── MEMORIES ── -->
-      <div class="section">
-        <h2 class="sec-title">Moments to Cherish 🌸</h2>
-        <div class="divider"><span class="divider-heart">♥</span></div>
-        <div class="memory-grid">
-          <div class="memory-card">
-            <div class="memory-icon">🌅</div>
-            <div class="memory-title">The First Day</div>
-            <div class="memory-desc">
-              The moment everything changed — when I realized you were the one
-              I'd been waiting for.
-            </div>
-          </div>
-          <div class="memory-card">
-            <div class="memory-icon">🤣</div>
-            <div class="memory-title">Our Laughs</div>
-            <div class="memory-desc">
-              Every silly joke, every burst of laughter — you make even ordinary
-              moments extraordinary.
-            </div>
-          </div>
-          <div class="memory-card">
-            <div class="memory-icon">🌙</div>
-            <div class="memory-title">Late Night Talks</div>
-            <div class="memory-desc">
-              Those deep conversations under the stars where our hearts spoke
-              without filters.
-            </div>
-          </div>
-          <div class="memory-card">
-            <div class="memory-icon">💌</div>
-            <div class="memory-title">Sweet Messages</div>
-            <div class="memory-desc">
-              Every good morning and good night that made my heart flutter all
-              over again.
-            </div>
-          </div>
-          <div class="memory-card">
-            <div class="memory-icon">🌸</div>
-            <div class="memory-title">Simple Moments</div>
-            <div class="memory-desc">
-              The quiet, still moments beside you that feel like the whole world
-              is perfectly at peace.
-            </div>
-          </div>
-          <div class="memory-card">
-            <div class="memory-icon">🔮</div>
-            <div class="memory-title">Our Future</div>
-            <div class="memory-desc">
-              Dreaming together about everything ahead — because our best
-              chapters are still unwritten.
             </div>
           </div>
         </div>
@@ -915,13 +894,13 @@
         </p>
         <p
           style="
-            color: rgba(192, 132, 252, 0.4);
-            font-size: 0.75rem;
+            color: rgba(249, 168, 212, 0.8);
+            font-size: 0.9rem;
             margin-top: 24px;
             letter-spacing: 0.05em;
           "
         >
-          07 · 15 · 2025 → ∞
+          July 15, 2025 → May 15, 2026
         </p>
       </footer>
     </div>
@@ -962,6 +941,7 @@
       const errorMsg = document.getElementById("error-msg");
       const lockIcon = document.getElementById("lock-icon");
       const enterBtn = document.getElementById("enter-btn");
+      const backBtn = document.getElementById("back-btn");
 
       function updateDots() {
         dots.forEach((d, i) => {
@@ -1047,6 +1027,20 @@
         }, 900);
       }
 
+      function returnToLogin() {
+        const ls = document.getElementById("lock-screen");
+        document.getElementById("main-content").classList.remove("visible");
+        ls.classList.remove("unlocking");
+        ls.style.display = "flex";
+        entered = "";
+        updateDots();
+        errorMsg.textContent = "";
+        lockIcon.textContent = "🔒";
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+
+      backBtn.addEventListener("click", returnToLogin);
+
       /* ── Stars ── */
       const starsEl = document.getElementById("stars");
       for (let i = 0; i < 90; i++) {
@@ -1094,27 +1088,18 @@
       setInterval(spawnHeart, 1100);
 
       /* ── Countdown ── */
-      const start = new Date("2024-07-15T00:00:00");
+      const startDate = new Date("2025-07-15T00:00:00");
       function updateTimer() {
         const now = new Date();
-        const diff = now - start;
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById("c-days").textContent = d;
-        document.getElementById("c-hours").textContent = String(h).padStart(
-          2,
-          "0",
-        );
-        document.getElementById("c-mins").textContent = String(m).padStart(
-          2,
-          "0",
-        );
-        document.getElementById("c-secs").textContent = String(s).padStart(
-          2,
-          "0",
-        );
+        const diff = Math.max(0, now - startDate);
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById("c-days").textContent = String(days);
+        document.getElementById("c-hours").textContent = String(hours).padStart(2, "0");
+        document.getElementById("c-mins").textContent = String(mins).padStart(2, "0");
+        document.getElementById("c-secs").textContent = String(secs).padStart(2, "0");
       }
       setInterval(updateTimer, 1000);
       updateTimer();
