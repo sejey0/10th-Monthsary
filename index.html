@@ -1,707 +1,1152 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Our 10th Monthsary 💕</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --pink-light: #fce4ec;
-      --pink-mid:   #f48fb1;
-      --pink-deep:  #e91e8c;
-      --purple-light: #f3e5f5;
-      --purple-mid:   #ce93d8;
-      --purple-deep:  #9c27b0;
-      --rose:       #ff4081;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our 10th Monthsary 💕</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --pink-light: #fce4ec;
+        --pink-mid: #f48fb1;
+        --pink-deep: #e91e8c;
+        --purple-light: #f3e5f5;
+        --purple-mid: #ce93d8;
+        --purple-deep: #9c27b0;
+        --rose: #ff4081;
+      }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      font-family: 'Cormorant Garamond', serif;
-      background: #1a0a1e;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
+      body {
+        font-family: "Cormorant Garamond", serif;
+        background: #1a0a1e;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
 
-    /* ─── LOCK SCREEN ─── */
-    #lock-screen {
-      position: fixed; inset: 0; z-index: 100;
-      background: linear-gradient(145deg, #3d0c4e 0%, #7b1fa2 35%, #e91e8c 70%, #f06292 100%);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      transition: opacity .8s ease, transform .8s ease;
-    }
-    #lock-screen.unlocking {
-      opacity: 0; transform: scale(1.08) translateY(-30px);
-      pointer-events: none;
-    }
+      /* ─── LOCK SCREEN ─── */
+      #lock-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: linear-gradient(
+          145deg,
+          #3d0c4e 0%,
+          #7b1fa2 35%,
+          #e91e8c 70%,
+          #f06292 100%
+        );
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+      #lock-screen.unlocking {
+        opacity: 0;
+        transform: scale(1.08) translateY(-30px);
+        pointer-events: none;
+      }
 
-    /* shimmer overlay */
-    #lock-screen::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,.18) 0%, transparent 55%),
-                  radial-gradient(ellipse at 80% 80%, rgba(249,168,212,.22) 0%, transparent 50%);
-      pointer-events: none;
-    }
+      /* shimmer overlay */
+      #lock-screen::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 30% 20%,
+            rgba(255, 255, 255, 0.18) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 80% 80%,
+            rgba(249, 168, 212, 0.22) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+      }
 
-    /* floating petals */
-    .petal {
-      position: absolute;
-      width: 10px; height: 14px;
-      border-radius: 50% 0 50% 0;
-      opacity: .55;
-      animation: fall linear infinite;
-    }
-    @keyframes fall {
-      0%   { transform: translateY(-60px) rotate(0deg); opacity:.6; }
-      100% { transform: translateY(110vh)  rotate(360deg); opacity:0; }
-    }
+      /* floating petals */
+      .petal {
+        position: absolute;
+        width: 10px;
+        height: 14px;
+        border-radius: 50% 0 50% 0;
+        opacity: 0.55;
+        animation: fall linear infinite;
+      }
+      @keyframes fall {
+        0% {
+          transform: translateY(-60px) rotate(0deg);
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
 
-    /* lock icon */
-    .lock-icon-wrap {
-      width: 90px; height: 90px;
-      background: rgba(255,255,255,.18);
-      border: 2.5px solid rgba(255,255,255,.55);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 40px rgba(233,30,140,.6), 0 0 80px rgba(156,39,176,.35);
-      animation: pulse-lock 2s ease-in-out infinite;
-      margin-bottom: 24px;
-    }
-    @keyframes pulse-lock {
-      0%,100% { box-shadow: 0 0 40px rgba(233,30,140,.6), 0 0 80px rgba(156,39,176,.35); }
-      50%      { box-shadow: 0 0 60px rgba(233,30,140,.9), 0 0 110px rgba(156,39,176,.55); }
-    }
-    .lock-icon { font-size: 2.6rem; }
+      /* lock icon */
+      .lock-icon-wrap {
+        width: 90px;
+        height: 90px;
+        background: rgba(255, 255, 255, 0.18);
+        border: 2.5px solid rgba(255, 255, 255, 0.55);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow:
+          0 0 40px rgba(233, 30, 140, 0.6),
+          0 0 80px rgba(156, 39, 176, 0.35);
+        animation: pulse-lock 2s ease-in-out infinite;
+        margin-bottom: 24px;
+      }
+      @keyframes pulse-lock {
+        0%,
+        100% {
+          box-shadow:
+            0 0 40px rgba(233, 30, 140, 0.6),
+            0 0 80px rgba(156, 39, 176, 0.35);
+        }
+        50% {
+          box-shadow:
+            0 0 60px rgba(233, 30, 140, 0.9),
+            0 0 110px rgba(156, 39, 176, 0.55);
+        }
+      }
+      .lock-icon {
+        font-size: 2.6rem;
+      }
 
-    /* PIN dots */
-    .pin-dots { display: flex; gap: 18px; margin: 32px 0 28px; }
-    .dot {
-      width: 18px; height: 18px; border-radius: 50%;
-      border: 2.5px solid rgba(255,255,255,.75);
-      background: transparent;
-      transition: background .2s, transform .2s, border-color .2s;
-    }
-    .dot.filled {
-      background: #fff;
-      border-color: #fff;
-      transform: scale(1.15);
-      box-shadow: 0 0 10px rgba(255,255,255,.7);
-    }
-    .dot.error {
-      background: #ff6b6b;
-      border-color: #ff6b6b;
-      animation: shake .4s ease;
-    }
-    @keyframes shake {
-      0%,100% { transform: translateX(0); }
-      20% { transform: translateX(-6px); }
-      40% { transform: translateX(6px); }
-      60% { transform: translateX(-4px); }
-      80% { transform: translateX(4px); }
-    }
+      /* PIN dots */
+      .pin-dots {
+        display: flex;
+        gap: 18px;
+        margin: 32px 0 28px;
+      }
+      .dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2.5px solid rgba(255, 255, 255, 0.75);
+        background: transparent;
+        transition:
+          background 0.2s,
+          transform 0.2s,
+          border-color 0.2s;
+      }
 
-    /* keypad */
-    .keypad { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
-    .key {
-      width: 72px; height: 72px; border-radius: 50%;
-      background: rgba(255,255,255,.14);
-      border: 1.5px solid rgba(255,255,255,.3);
-      color: #fff; font-size: 1.5rem;
-      font-family: 'Playfair Display', serif;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      transition: background .15s, transform .1s, box-shadow .15s;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .key:hover { background: rgba(255,255,255,.28); }
-    .key:active { background: rgba(255,255,255,.45); transform: scale(.92); }
-    .key.del { font-size: 1.2rem; }
-    .key.empty { background: transparent; border: none; cursor: default; pointer-events: none; }
+      .enter-btn {
+        height: 52px;
+        padding: 0 22px;
+        border-radius: 999px;
+        border: 1.5px solid rgba(255, 255, 255, 0.34);
+        background: linear-gradient(
+          135deg,
+          rgba(249, 168, 212, 0.28),
+          rgba(192, 132, 252, 0.32)
+        );
+        color: #fff;
+        font-family: "Playfair Display", serif;
+        font-size: 1rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          transform 0.15s ease,
+          background 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+      .enter-btn:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(249, 168, 212, 0.38),
+          rgba(192, 132, 252, 0.42)
+        );
+      }
+      .enter-btn:active {
+        transform: scale(0.97);
+      }
+      .enter-btn.key {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        padding: 0;
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+      }
+      .dot.filled {
+        background: #fff;
+        border-color: #fff;
+        transform: scale(1.15);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+      }
+      .dot.error {
+        background: #ff6b6b;
+        border-color: #ff6b6b;
+        animation: shake 0.4s ease;
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(-6px);
+        }
+        40% {
+          transform: translateX(6px);
+        }
+        60% {
+          transform: translateX(-4px);
+        }
+        80% {
+          transform: translateX(4px);
+        }
+      }
 
-    .error-msg {
-      color: #ffcdd2; font-size: .85rem;
-      margin-top: 14px; letter-spacing:.05em;
-      min-height: 20px;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-    }
+      /* keypad */
+      .keypad {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .key {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        font-size: 1.5rem;
+        font-family: "Playfair Display", serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          transform 0.1s,
+          box-shadow 0.15s;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .key:hover {
+        background: rgba(255, 255, 255, 0.28);
+      }
+      .key:active {
+        background: rgba(255, 255, 255, 0.45);
+        transform: scale(0.92);
+      }
+      .key.del {
+        font-size: 1.2rem;
+      }
+      .key.empty {
+        background: transparent;
+        border: none;
+        cursor: default;
+        pointer-events: none;
+      }
 
-    /* ─── MAIN CONTENT ─── */
-    #main-content {
-      display: none;
-      min-height: 100vh;
-      background: linear-gradient(165deg, #1a0a1e 0%, #2d0b3e 30%, #4a0e5c 60%, #1f0a2e 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    #main-content.visible { display: block; }
+      .error-msg {
+        color: #ffcdd2;
+        font-size: 0.85rem;
+        margin-top: 14px;
+        letter-spacing: 0.05em;
+        min-height: 20px;
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+      }
 
-    /* stars bg */
-    .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-    .star {
-      position: absolute; border-radius: 50%;
-      background: #fff;
-      animation: twinkle ease-in-out infinite;
-    }
-    @keyframes twinkle {
-      0%,100% { opacity: .15; transform: scale(1); }
-      50% { opacity: .9; transform: scale(1.4); }
-    }
+      /* ─── MAIN CONTENT ─── */
+      #main-content {
+        display: none;
+        min-height: 100vh;
+        background: linear-gradient(
+          165deg,
+          #1a0a1e 0%,
+          #2d0b3e 30%,
+          #4a0e5c 60%,
+          #1f0a2e 100%
+        );
+        position: relative;
+        overflow: hidden;
+      }
+      #main-content.visible {
+        display: block;
+      }
 
-    /* floating hearts */
-    .heart-float {
-      position: fixed; pointer-events: none; z-index: 1;
-      font-size: 1.4rem; opacity: 0;
-      animation: float-up linear infinite;
-    }
-    @keyframes float-up {
-      0%   { transform: translateY(0) rotate(-10deg) scale(.8); opacity:0; }
-      15%  { opacity:.7; }
-      85%  { opacity:.5; }
-      100% { transform: translateY(-100vh) rotate(15deg) scale(1.1); opacity:0; }
-    }
+      /* stars bg */
+      .stars {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .star {
+        position: absolute;
+        border-radius: 50%;
+        background: #fff;
+        animation: twinkle ease-in-out infinite;
+      }
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.15;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.9;
+          transform: scale(1.4);
+        }
+      }
 
-    /* sections */
-    .section {
-      position: relative; z-index: 2;
-      max-width: 900px; margin: 0 auto;
-      padding: 60px 24px;
-    }
+      /* floating hearts */
+      .heart-float {
+        position: fixed;
+        pointer-events: none;
+        z-index: 1;
+        font-size: 1.4rem;
+        opacity: 0;
+        animation: float-up linear infinite;
+      }
+      @keyframes float-up {
+        0% {
+          transform: translateY(0) rotate(-10deg) scale(0.8);
+          opacity: 0;
+        }
+        15% {
+          opacity: 0.7;
+        }
+        85% {
+          opacity: 0.5;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(15deg) scale(1.1);
+          opacity: 0;
+        }
+      }
 
-    /* hero */
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 40px 24px;
-      position: relative; z-index: 2;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: rgba(233,30,140,.18);
-      border: 1px solid rgba(233,30,140,.45);
-      border-radius: 999px;
-      padding: 8px 22px;
-      color: #f48fb1; font-size: .8rem;
-      letter-spacing: .18em; text-transform: uppercase;
-      margin-bottom: 30px;
-      backdrop-filter: blur(6px);
-    }
-    .hero-number {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(5rem, 20vw, 11rem);
-      font-weight: 700; line-height: .9;
-      background: linear-gradient(135deg, #f9a8d4 0%, #e879f9 40%, #c084fc 70%, #f0abfc 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 40px rgba(216,100,255,.6));
-      animation: glow-num 3s ease-in-out infinite;
-    }
-    @keyframes glow-num {
-      0%,100% { filter: drop-shadow(0 0 40px rgba(216,100,255,.6)); }
-      50%      { filter: drop-shadow(0 0 70px rgba(249,168,212,.9)) drop-shadow(0 0 30px #e879f9); }
-    }
-    .hero-label {
-      font-family: 'Dancing Script', cursive;
-      font-size: clamp(1.5rem, 5vw, 2.6rem);
-      color: #f9a8d4; margin-top: 8px;
-    }
-    .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      color: #fff; line-height: 1.15;
-      margin-top: 20px;
-    }
-    .hero-title span {
-      background: linear-gradient(90deg, #f472b6, #c084fc);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero-subtitle {
-      color: #e9b8f0; font-size: 1.1rem;
-      font-style: italic; margin-top: 16px;
-      line-height: 1.7; max-width: 520px;
-    }
-    .scroll-hint {
-      margin-top: 48px; color: rgba(249,168,212,.6);
-      font-size: .8rem; letter-spacing: .15em;
-      text-transform: uppercase;
-      animation: bounce-hint 2s ease-in-out infinite;
-    }
-    @keyframes bounce-hint {
-      0%,100% { transform: translateY(0); opacity:.6; }
-      50% { transform: translateY(8px); opacity:1; }
-    }
+      /* sections */
+      .section {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 60px 24px;
+      }
 
-    /* glass card */
-    .glass-card {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 24px;
-      backdrop-filter: blur(12px);
-      padding: 40px 36px;
-      box-shadow: 0 8px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.1);
-    }
+      /* hero */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 40px 24px;
+        position: relative;
+        z-index: 2;
+      }
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(233, 30, 140, 0.18);
+        border: 1px solid rgba(233, 30, 140, 0.45);
+        border-radius: 999px;
+        padding: 8px 22px;
+        color: #f48fb1;
+        font-size: 0.8rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-bottom: 30px;
+        backdrop-filter: blur(6px);
+      }
+      .hero-number {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(5rem, 20vw, 11rem);
+        font-weight: 700;
+        line-height: 0.9;
+        background: linear-gradient(
+          135deg,
+          #f9a8d4 0%,
+          #e879f9 40%,
+          #c084fc 70%,
+          #f0abfc 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 40px rgba(216, 100, 255, 0.6));
+        animation: glow-num 3s ease-in-out infinite;
+      }
+      @keyframes glow-num {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 40px rgba(216, 100, 255, 0.6));
+        }
+        50% {
+          filter: drop-shadow(0 0 70px rgba(249, 168, 212, 0.9))
+            drop-shadow(0 0 30px #e879f9);
+        }
+      }
+      .hero-label {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(1.5rem, 5vw, 2.6rem);
+        color: #f9a8d4;
+        margin-top: 8px;
+      }
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        color: #fff;
+        line-height: 1.15;
+        margin-top: 20px;
+      }
+      .hero-title span {
+        background: linear-gradient(90deg, #f472b6, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero-subtitle {
+        color: #e9b8f0;
+        font-size: 1.1rem;
+        font-style: italic;
+        margin-top: 16px;
+        line-height: 1.7;
+        max-width: 520px;
+      }
+      .scroll-hint {
+        margin-top: 48px;
+        color: rgba(249, 168, 212, 0.6);
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        animation: bounce-hint 2s ease-in-out infinite;
+      }
+      @keyframes bounce-hint {
+        0%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.6;
+        }
+        50% {
+          transform: translateY(8px);
+          opacity: 1;
+        }
+      }
 
-    /* section title */
-    .sec-title {
-      font-family: 'Dancing Script', cursive;
-      font-size: clamp(2rem, 5vw, 2.8rem);
-      text-align: center;
-      background: linear-gradient(90deg, #f9a8d4, #e879f9, #c084fc);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 36px;
-    }
-    .divider {
-      display: flex; align-items: center; gap: 14px;
-      margin-bottom: 36px;
-    }
-    .divider::before, .divider::after {
-      content: ''; flex: 1; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(206,147,216,.5), transparent);
-    }
-    .divider-heart { color: #e879f9; font-size: 1.1rem; }
+      /* glass card */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        backdrop-filter: blur(12px);
+        padding: 40px 36px;
+        box-shadow:
+          0 8px 60px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
 
-    /* memory cards */
-    .memory-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-    .memory-card {
-      background: linear-gradient(135deg, rgba(233,30,140,.12), rgba(156,39,176,.12));
-      border: 1px solid rgba(233,30,140,.2);
-      border-radius: 18px; padding: 28px 22px;
-      transition: transform .3s, box-shadow .3s;
-      cursor: default;
-    }
-    .memory-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(233,30,140,.25);
-      border-color: rgba(233,30,140,.45);
-    }
-    .memory-icon { font-size: 2rem; margin-bottom: 12px; }
-    .memory-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem; color: #f9a8d4; margin-bottom: 8px;
-    }
-    .memory-desc { color: #d8b4fe; font-size: .9rem; line-height: 1.65; font-style: italic; }
+      /* section title */
+      .sec-title {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        text-align: center;
+        background: linear-gradient(90deg, #f9a8d4, #e879f9, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 36px;
+      }
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 36px;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(206, 147, 216, 0.5),
+          transparent
+        );
+      }
+      .divider-heart {
+        color: #e879f9;
+        font-size: 1.1rem;
+      }
 
-    /* promise list */
-    .promise-item {
-      display: flex; gap: 16px; align-items: flex-start;
-      padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .promise-item:last-child { border-bottom: none; }
-    .promise-num {
-      flex-shrink: 0;
-      width: 36px; height: 36px; border-radius: 50%;
-      background: linear-gradient(135deg, #e879f9, #f472b6);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Playfair Display', serif; color: #fff; font-size: .85rem; font-weight: 700;
-    }
-    .promise-text { color: #e9d5ff; line-height: 1.7; font-size: .98rem; }
-    .promise-text strong { color: #f9a8d4; font-style: italic; }
+      /* memory cards */
+      .memory-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+      }
+      .memory-card {
+        background: linear-gradient(
+          135deg,
+          rgba(233, 30, 140, 0.12),
+          rgba(156, 39, 176, 0.12)
+        );
+        border: 1px solid rgba(233, 30, 140, 0.2);
+        border-radius: 18px;
+        padding: 28px 22px;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        cursor: default;
+      }
+      .memory-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 40px rgba(233, 30, 140, 0.25);
+        border-color: rgba(233, 30, 140, 0.45);
+      }
+      .memory-icon {
+        font-size: 2rem;
+        margin-bottom: 12px;
+      }
+      .memory-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.05rem;
+        color: #f9a8d4;
+        margin-bottom: 8px;
+      }
+      .memory-desc {
+        color: #d8b4fe;
+        font-size: 0.9rem;
+        line-height: 1.65;
+        font-style: italic;
+      }
 
-    /* countdown */
-    .countdown-grid {
-      display: grid; grid-template-columns: repeat(4,1fr); gap: 16px;
-      text-align: center;
-    }
-    .count-box {
-      background: linear-gradient(145deg, rgba(233,30,140,.15), rgba(156,39,176,.15));
-      border: 1px solid rgba(206,147,216,.25);
-      border-radius: 16px; padding: 24px 8px;
-    }
-    .count-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.4rem; font-weight: 700;
-      background: linear-gradient(135deg, #f9a8d4, #e879f9);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .count-label { color: #c084fc; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; margin-top: 4px; }
+      /* promise list */
+      .promise-item {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .promise-item:last-child {
+        border-bottom: none;
+      }
+      .promise-num {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #e879f9, #f472b6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Playfair Display", serif;
+        color: #fff;
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .promise-text {
+        color: #e9d5ff;
+        line-height: 1.7;
+        font-size: 0.98rem;
+      }
+      .promise-text strong {
+        color: #f9a8d4;
+        font-style: italic;
+      }
 
-    /* love message */
-    .love-msg {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-      color: #f3e8ff; line-height: 2;
-      text-align: center; font-style: italic;
-    }
-    .love-msg .heart-inline { color: #e879f9; font-style: normal; }
+      /* countdown */
+      .countdown-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        text-align: center;
+      }
+      .count-box {
+        background: linear-gradient(
+          145deg,
+          rgba(233, 30, 140, 0.15),
+          rgba(156, 39, 176, 0.15)
+        );
+        border: 1px solid rgba(206, 147, 216, 0.25);
+        border-radius: 16px;
+        padding: 24px 8px;
+      }
+      .count-num {
+        font-family: "Playfair Display", serif;
+        font-size: 2.4rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #f9a8d4, #e879f9);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .count-label {
+        color: #c084fc;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-top: 4px;
+      }
 
-    /* confetti burst */
-    .confetti-piece {
-      position: fixed; pointer-events: none; z-index: 200;
-      width: 8px; height: 8px;
-      border-radius: 2px;
-      animation: confetti-fall linear forwards;
-    }
-    @keyframes confetti-fall {
-      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
+      /* love message */
+      .love-msg {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+        color: #f3e8ff;
+        line-height: 2;
+        text-align: center;
+        font-style: italic;
+      }
+      .love-msg .heart-inline {
+        color: #e879f9;
+        font-style: normal;
+      }
 
-    /* responsive */
-    @media (max-width: 500px) {
-      .countdown-grid { grid-template-columns: repeat(2,1fr); }
-      .glass-card { padding: 28px 18px; }
-    }
-  </style>
-</head>
-<body>
+      /* confetti burst */
+      .confetti-piece {
+        position: fixed;
+        pointer-events: none;
+        z-index: 200;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        animation: confetti-fall linear forwards;
+      }
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
 
-<!-- ═══════════════ LOCK SCREEN ═══════════════ -->
-<div id="lock-screen">
+      /* responsive */
+      @media (max-width: 500px) {
+        .countdown-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .glass-card {
+          padding: 28px 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═══════════════ LOCK SCREEN ═══════════════ -->
+    <div id="lock-screen">
+      <!-- Falling petals -->
+      <div id="petals-container"></div>
 
-  <!-- Falling petals -->
-  <div id="petals-container"></div>
-
-  <!-- Lock icon -->
-  <div class="lock-icon-wrap">
-    <span class="lock-icon" id="lock-icon">🔒</span>
-  </div>
-
-  <p style="font-family:'Dancing Script',cursive; color:rgba(255,255,255,.9); font-size:1.6rem; margin-bottom:4px;">
-    A special surprise awaits…
-  </p>
-  <p style="color:rgba(255,255,255,.6); font-size:.85rem; letter-spacing:.1em; font-family:'Cormorant Garamond',serif; font-style:italic; margin-bottom:0;">
-    Enter the secret PIN to unlock
-  </p>
-
-  <!-- PIN dots -->
-  <div class="pin-dots" id="pin-dots">
-    <div class="dot" id="d0"></div>
-    <div class="dot" id="d1"></div>
-    <div class="dot" id="d2"></div>
-    <div class="dot" id="d3"></div>
-    <div class="dot" id="d4"></div>
-    <div class="dot" id="d5"></div>
-    <div class="dot" id="d6"></div>
-    <div class="dot" id="d7"></div>
-  </div>
-
-  <!-- Keypad -->
-  <div class="keypad" id="keypad">
-    <div class="key" data-v="1">1</div>
-    <div class="key" data-v="2">2</div>
-    <div class="key" data-v="3">3</div>
-    <div class="key" data-v="4">4</div>
-    <div class="key" data-v="5">5</div>
-    <div class="key" data-v="6">6</div>
-    <div class="key" data-v="7">7</div>
-    <div class="key" data-v="8">8</div>
-    <div class="key" data-v="9">9</div>
-    <div class="key empty"></div>
-    <div class="key" data-v="0">0</div>
-    <div class="key del" id="del-key">⌫</div>
-  </div>
-
-  <p class="error-msg" id="error-msg"></p>
-</div>
-
-<!-- ═══════════════ MAIN CONTENT ═══════════════ -->
-<div id="main-content">
-
-  <!-- Twinkling stars -->
-  <div class="stars" id="stars"></div>
-
-  <!-- Floating hearts -->
-  <div id="hearts-container"></div>
-
-  <!-- ── HERO ── -->
-  <section class="hero">
-    <div class="hero-badge">✦ 10th Monthsary ✦</div>
-    <div class="hero-number">10</div>
-    <p class="hero-label">months of us 💕</p>
-    <h1 class="hero-title">Happy <span>10th Monthsary</span>,<br>My Love</h1>
-    <p class="hero-subtitle">
-      Ten beautiful months of laughter, warmth, and love —<br>
-      each day sweeter than the last, because of you.
-    </p>
-    <p class="scroll-hint">↓ scroll to explore ↓</p>
-  </section>
-
-  <!-- ── COUNTDOWN ── -->
-  <div class="section">
-    <div class="glass-card">
-      <h2 class="sec-title">Our Time Together</h2>
-      <div class="divider"><span class="divider-heart">♥</span></div>
-      <div class="countdown-grid" id="countdown-grid">
-        <div class="count-box"><div class="count-num" id="c-days">300</div><div class="count-label">Days</div></div>
-        <div class="count-box"><div class="count-num" id="c-hours">0</div><div class="count-label">Hours</div></div>
-        <div class="count-box"><div class="count-num" id="c-mins">0</div><div class="count-label">Minutes</div></div>
-        <div class="count-box"><div class="count-num" id="c-secs">0</div><div class="count-label">Seconds</div></div>
+      <!-- Lock icon -->
+      <div class="lock-icon-wrap">
+        <span class="lock-icon" id="lock-icon">🔒</span>
       </div>
-    </div>
-  </div>
 
-  <!-- ── MEMORIES ── -->
-  <div class="section">
-    <h2 class="sec-title">Moments to Cherish 🌸</h2>
-    <div class="divider"><span class="divider-heart">♥</span></div>
-    <div class="memory-grid">
-      <div class="memory-card">
-        <div class="memory-icon">🌅</div>
-        <div class="memory-title">The First Day</div>
-        <div class="memory-desc">The moment everything changed — when I realized you were the one I'd been waiting for.</div>
-      </div>
-      <div class="memory-card">
-        <div class="memory-icon">🤣</div>
-        <div class="memory-title">Our Laughs</div>
-        <div class="memory-desc">Every silly joke, every burst of laughter — you make even ordinary moments extraordinary.</div>
-      </div>
-      <div class="memory-card">
-        <div class="memory-icon">🌙</div>
-        <div class="memory-title">Late Night Talks</div>
-        <div class="memory-desc">Those deep conversations under the stars where our hearts spoke without filters.</div>
-      </div>
-      <div class="memory-card">
-        <div class="memory-icon">💌</div>
-        <div class="memory-title">Sweet Messages</div>
-        <div class="memory-desc">Every good morning and good night that made my heart flutter all over again.</div>
-      </div>
-      <div class="memory-card">
-        <div class="memory-icon">🌸</div>
-        <div class="memory-title">Simple Moments</div>
-        <div class="memory-desc">The quiet, still moments beside you that feel like the whole world is perfectly at peace.</div>
-      </div>
-      <div class="memory-card">
-        <div class="memory-icon">🔮</div>
-        <div class="memory-title">Our Future</div>
-        <div class="memory-desc">Dreaming together about everything ahead — because our best chapters are still unwritten.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── LOVE MESSAGE ── -->
-  <div class="section">
-    <div class="glass-card">
-      <h2 class="sec-title">From My Heart to Yours 💜</h2>
-      <div class="divider"><span class="divider-heart">♥</span></div>
-      <p class="love-msg">
-        Ten months ago, the universe conspired to bring us together,<br>
-        and every single day since then <span class="heart-inline">♥</span> I have fallen deeper in love with you.<br><br>
-        You are my calm in every storm, my smile on the hardest days,<br>
-        my home in every unfamiliar place. <span class="heart-inline">♥</span><br><br>
-        Thank you for choosing me, for loving me, for staying.<br>
-        Here's to ten more months — and then a lifetime beyond that. <span class="heart-inline">♥</span>
+      <p
+        style="
+          font-family: &quot;Dancing Script&quot;, cursive;
+          color: rgba(255, 255, 255, 0.9);
+          font-size: 1.6rem;
+          margin-bottom: 4px;
+        "
       </p>
-    </div>
-  </div>
+      <p
+        style="
+          color: rgba(255, 255, 255, 0.6);
+          font-size: 0.85rem;
+          letter-spacing: 0.1em;
+          font-family: &quot;Cormorant Garamond&quot;, serif;
+          font-style: italic;
+          margin-bottom: 0;
+        "
+      >
+        Enter the secret PIN to unlock
+      </p>
 
-  <!-- ── PROMISES ── -->
-  <div class="section">
-    <div class="glass-card">
-      <h2 class="sec-title">My Promises to You 🌷</h2>
-      <div class="divider"><span class="divider-heart">♥</span></div>
-      <div>
-        <div class="promise-item">
-          <div class="promise-num">1</div>
-          <p class="promise-text">I promise to <strong>always choose you</strong> — in every moment, in every decision, in every version of my life.</p>
-        </div>
-        <div class="promise-item">
-          <div class="promise-num">2</div>
-          <p class="promise-text">I promise to <strong>love you through the storms</strong> — to stand beside you when life gets hard and hold your hand until it passes.</p>
-        </div>
-        <div class="promise-item">
-          <div class="promise-num">3</div>
-          <p class="promise-text">I promise to <strong>make you smile</strong> every single day — because your smile is the most beautiful thing I've ever seen.</p>
-        </div>
-        <div class="promise-item">
-          <div class="promise-num">4</div>
-          <p class="promise-text">I promise to <strong>grow with you</strong> — to learn, to evolve, to become better because you inspire me to be.</p>
-        </div>
-        <div class="promise-item">
-          <div class="promise-num">5</div>
-          <p class="promise-text">I promise to <strong>never stop choosing us</strong> — not after ten months, not after ten years, not ever.</p>
+      <!-- PIN dots -->
+      <div class="pin-dots" id="pin-dots">
+        <div class="dot" id="d0"></div>
+        <div class="dot" id="d1"></div>
+        <div class="dot" id="d2"></div>
+        <div class="dot" id="d3"></div>
+        <div class="dot" id="d4"></div>
+        <div class="dot" id="d5"></div>
+        <div class="dot" id="d6"></div>
+        <div class="dot" id="d7"></div>
+      </div>
+
+      <!-- Keypad -->
+      <div class="keypad" id="keypad">
+        <div class="key" data-v="1">1</div>
+        <div class="key" data-v="2">2</div>
+        <div class="key" data-v="3">3</div>
+        <div class="key" data-v="4">4</div>
+        <div class="key" data-v="5">5</div>
+        <div class="key" data-v="6">6</div>
+        <div class="key" data-v="7">7</div>
+        <div class="key" data-v="8">8</div>
+        <div class="key" data-v="9">9</div>
+        <button id="enter-btn" class="enter-btn key" type="button">
+          Enter
+        </button>
+        <div class="key" data-v="0">0</div>
+        <div class="key del" id="del-key">⌫</div>
+      </div>
+
+      <p class="error-msg" id="error-msg"></p>
+    </div>
+
+    <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+    <div id="main-content">
+      <!-- Twinkling stars -->
+      <div class="stars" id="stars"></div>
+
+      <!-- Floating hearts -->
+      <div id="hearts-container"></div>
+
+      <!-- ── HERO ── -->
+      <section class="hero">
+        <div class="hero-badge">✦ 10th Monthsary ✦</div>
+        <div class="hero-number">10</div>
+        <p class="hero-label">months of us 💕</p>
+        <h1 class="hero-title">
+          Happy <span>10th Monthsary</span>,<br />My Love
+        </h1>
+        <p class="hero-subtitle">
+          Ten beautiful months of laughter, warmth, and love —<br />
+          each day sweeter than the last, because of you.
+        </p>
+        <p class="scroll-hint">↓ scroll to explore ↓</p>
+      </section>
+
+      <!-- ── COUNTDOWN ── -->
+      <div class="section">
+        <div class="glass-card">
+          <h2 class="sec-title">Our Time Together</h2>
+          <div class="divider"><span class="divider-heart">♥</span></div>
+          <div class="countdown-grid" id="countdown-grid">
+            <div class="count-box">
+              <div class="count-num" id="c-days">300</div>
+              <div class="count-label">Days</div>
+            </div>
+            <div class="count-box">
+              <div class="count-num" id="c-hours">0</div>
+              <div class="count-label">Hours</div>
+            </div>
+            <div class="count-box">
+              <div class="count-num" id="c-mins">0</div>
+              <div class="count-label">Minutes</div>
+            </div>
+            <div class="count-box">
+              <div class="count-num" id="c-secs">0</div>
+              <div class="count-label">Seconds</div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- ── MEMORIES ── -->
+      <div class="section">
+        <h2 class="sec-title">Moments to Cherish 🌸</h2>
+        <div class="divider"><span class="divider-heart">♥</span></div>
+        <div class="memory-grid">
+          <div class="memory-card">
+            <div class="memory-icon">🌅</div>
+            <div class="memory-title">The First Day</div>
+            <div class="memory-desc">
+              The moment everything changed — when I realized you were the one
+              I'd been waiting for.
+            </div>
+          </div>
+          <div class="memory-card">
+            <div class="memory-icon">🤣</div>
+            <div class="memory-title">Our Laughs</div>
+            <div class="memory-desc">
+              Every silly joke, every burst of laughter — you make even ordinary
+              moments extraordinary.
+            </div>
+          </div>
+          <div class="memory-card">
+            <div class="memory-icon">🌙</div>
+            <div class="memory-title">Late Night Talks</div>
+            <div class="memory-desc">
+              Those deep conversations under the stars where our hearts spoke
+              without filters.
+            </div>
+          </div>
+          <div class="memory-card">
+            <div class="memory-icon">💌</div>
+            <div class="memory-title">Sweet Messages</div>
+            <div class="memory-desc">
+              Every good morning and good night that made my heart flutter all
+              over again.
+            </div>
+          </div>
+          <div class="memory-card">
+            <div class="memory-icon">🌸</div>
+            <div class="memory-title">Simple Moments</div>
+            <div class="memory-desc">
+              The quiet, still moments beside you that feel like the whole world
+              is perfectly at peace.
+            </div>
+          </div>
+          <div class="memory-card">
+            <div class="memory-icon">🔮</div>
+            <div class="memory-title">Our Future</div>
+            <div class="memory-desc">
+              Dreaming together about everything ahead — because our best
+              chapters are still unwritten.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LOVE MESSAGE ── -->
+      <div class="section">
+        <div class="glass-card">
+          <h2 class="sec-title">From My Heart to Yours 💜</h2>
+          <div class="divider"><span class="divider-heart">♥</span></div>
+          <p class="love-msg">
+            Ten months ago, the universe conspired to bring us together,<br />
+            and every single day since then
+            <span class="heart-inline">♥</span> I have fallen deeper in love
+            with you.<br /><br />
+            You are my calm in every storm, my smile on the hardest days,<br />
+            my home in every unfamiliar place.
+            <span class="heart-inline">♥</span><br /><br />
+            Thank you for choosing me, for loving me, for staying.<br />
+            Here's to ten more months — and then a lifetime beyond that.
+            <span class="heart-inline">♥</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- ── PROMISES ── -->
+      <div class="section">
+        <div class="glass-card">
+          <h2 class="sec-title">My Promises to You 🌷</h2>
+          <div class="divider"><span class="divider-heart">♥</span></div>
+          <div>
+            <div class="promise-item">
+              <div class="promise-num">1</div>
+              <p class="promise-text">
+                I promise to <strong>always choose you</strong> — in every
+                moment, in every decision, in every version of my life.
+              </p>
+            </div>
+            <div class="promise-item">
+              <div class="promise-num">2</div>
+              <p class="promise-text">
+                I promise to <strong>love you through the storms</strong> — to
+                stand beside you when life gets hard and hold your hand until it
+                passes.
+              </p>
+            </div>
+            <div class="promise-item">
+              <div class="promise-num">3</div>
+              <p class="promise-text">
+                I promise to <strong>make you smile</strong> every single day —
+                because your smile is the most beautiful thing I've ever seen.
+              </p>
+            </div>
+            <div class="promise-item">
+              <div class="promise-num">4</div>
+              <p class="promise-text">
+                I promise to <strong>grow with you</strong> — to learn, to
+                evolve, to become better because you inspire me to be.
+              </p>
+            </div>
+            <div class="promise-item">
+              <div class="promise-num">5</div>
+              <p class="promise-text">
+                I promise to <strong>never stop choosing us</strong> — not after
+                ten months, not after ten years, not ever.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FOOTER ── -->
+      <footer
+        style="
+          position: relative;
+          z-index: 2;
+          text-align: center;
+          padding: 48px 24px 60px;
+        "
+      >
+        <p
+          style="
+            font-family: &quot;Dancing Script&quot;, cursive;
+            font-size: 2.2rem;
+            color: #f9a8d4;
+            margin-bottom: 12px;
+          "
+        >
+          Happy 10th Monthsary, My Love 💕
+        </p>
+        <p style="color: #c084fc; font-size: 0.85rem; letter-spacing: 0.1em">
+          Forever & always — yours completely ♥
+        </p>
+        <p
+          style="
+            color: rgba(192, 132, 252, 0.4);
+            font-size: 0.75rem;
+            margin-top: 24px;
+            letter-spacing: 0.05em;
+          "
+        >
+          07 · 15 · 2025 → ∞
+        </p>
+      </footer>
     </div>
-  </div>
 
-  <!-- ── FOOTER ── -->
-  <footer style="position:relative; z-index:2; text-align:center; padding:48px 24px 60px;">
-    <p style="font-family:'Dancing Script',cursive; font-size:2.2rem; color:#f9a8d4; margin-bottom:12px;">
-      Happy 10th Monthsary, My Love 💕
-    </p>
-    <p style="color:#c084fc; font-size:.85rem; letter-spacing:.1em;">
-      Forever & always — yours completely ♥
-    </p>
-    <p style="color:rgba(192,132,252,.4); font-size:.75rem; margin-top:24px; letter-spacing:.05em;">
-      07 · 15 · 2025 → ∞
-    </p>
-  </footer>
-
-</div>
-
-<!-- ─────────────────── SCRIPTS ─────────────────── -->
-<script>
-  /* ── Petals on lock screen ── */
-  const petalsContainer = document.getElementById('petals-container');
-  const petalColors = ['#f9a8d4','#e879f9','#f472b6','#c084fc','#fce4ec','#d8b4fe'];
-  for (let i = 0; i < 22; i++) {
-    const p = document.createElement('div');
-    p.className = 'petal';
-    p.style.cssText = `
-      left:${Math.random()*100}%;
+    <!-- ─────────────────── SCRIPTS ─────────────────── -->
+    <script>
+      /* ── Petals on lock screen ── */
+      const petalsContainer = document.getElementById("petals-container");
+      const petalColors = [
+        "#f9a8d4",
+        "#e879f9",
+        "#f472b6",
+        "#c084fc",
+        "#fce4ec",
+        "#d8b4fe",
+      ];
+      for (let i = 0; i < 22; i++) {
+        const p = document.createElement("div");
+        p.className = "petal";
+        p.style.cssText = `
+      left:${Math.random() * 100}%;
       top:-20px;
-      width:${7+Math.random()*9}px;
-      height:${10+Math.random()*10}px;
-      background:${petalColors[Math.floor(Math.random()*petalColors.length)]};
-      animation-duration:${4+Math.random()*7}s;
-      animation-delay:${-Math.random()*8}s;
+      width:${7 + Math.random() * 9}px;
+      height:${10 + Math.random() * 10}px;
+      background:${petalColors[Math.floor(Math.random() * petalColors.length)]};
+      animation-duration:${4 + Math.random() * 7}s;
+      animation-delay:${-Math.random() * 8}s;
     `;
-    petalsContainer.appendChild(p);
-  }
+        petalsContainer.appendChild(p);
+      }
 
-  /* ── PIN logic ── */
-  const CORRECT = '07152025';
-  let entered = '';
-  const dots = Array.from({length:8}, (_,i) => document.getElementById('d'+i));
-  const errorMsg = document.getElementById('error-msg');
-  const lockIcon = document.getElementById('lock-icon');
+      /* ── PIN logic ── */
+      const CORRECT = "07152025";
+      let entered = "";
+      const dots = Array.from({ length: 8 }, (_, i) =>
+        document.getElementById("d" + i),
+      );
+      const errorMsg = document.getElementById("error-msg");
+      const lockIcon = document.getElementById("lock-icon");
+      const enterBtn = document.getElementById("enter-btn");
 
-  function updateDots() {
-    dots.forEach((d, i) => {
-      d.classList.toggle('filled', i < entered.length);
-      d.classList.remove('error');
-    });
-  }
+      function updateDots() {
+        dots.forEach((d, i) => {
+          d.classList.toggle("filled", i < entered.length);
+          d.classList.remove("error");
+        });
+      }
 
-  document.querySelectorAll('.key[data-v]').forEach(key => {
-    key.addEventListener('click', () => {
-      if (entered.length >= 8) return;
-      entered += key.dataset.v;
-      updateDots();
-      if (entered.length === 8) checkPin();
-    });
-  });
+      function submitPin() {
+        if (entered.length !== 8) {
+          errorMsg.textContent = "Please enter all 8 digits before submitting.";
+          return;
+        }
+        checkPin();
+      }
 
-  document.getElementById('del-key').addEventListener('click', () => {
-    if (!entered.length) return;
-    entered = entered.slice(0, -1);
-    updateDots();
-    errorMsg.textContent = '';
-  });
+      document.querySelectorAll(".key[data-v]").forEach((key) => {
+        key.addEventListener("click", () => {
+          if (entered.length >= 8) return;
+          entered += key.dataset.v;
+          updateDots();
+        });
+      });
 
-  // Keyboard support
-  document.addEventListener('keydown', e => {
-    if (document.getElementById('lock-screen').classList.contains('unlocking')) return;
-    if (e.key >= '0' && e.key <= '9' && entered.length < 8) {
-      entered += e.key; updateDots();
-      if (entered.length === 8) checkPin();
-    }
-    if (e.key === 'Backspace') {
-      entered = entered.slice(0,-1); updateDots(); errorMsg.textContent = '';
-    }
-  });
-
-  function checkPin() {
-    if (entered === CORRECT) {
-      lockIcon.textContent = '🔓';
-      errorMsg.textContent = '✦ Welcome, my love ✦';
-      errorMsg.style.color = '#a5f3fc';
-      setTimeout(unlock, 900);
-    } else {
-      dots.forEach(d => { d.classList.remove('filled'); d.classList.add('error'); });
-      errorMsg.textContent = 'Incorrect PIN — try again 💕';
-      setTimeout(() => {
-        entered = '';
+      document.getElementById("del-key").addEventListener("click", () => {
+        if (!entered.length) return;
+        entered = entered.slice(0, -1);
         updateDots();
-        errorMsg.textContent = '';
-      }, 1200);
-    }
-  }
+        errorMsg.textContent = "";
+      });
 
-  function unlock() {
-    const ls = document.getElementById('lock-screen');
-    ls.classList.add('unlocking');
-    document.getElementById('main-content').classList.add('visible');
-    setTimeout(() => { ls.style.display = 'none'; launchConfetti(); }, 900);
-  }
+      enterBtn.addEventListener("click", unlock);
 
-  /* ── Stars ── */
-  const starsEl = document.getElementById('stars');
-  for (let i = 0; i < 90; i++) {
-    const s = document.createElement('div');
-    s.className = 'star';
-    const sz = .5 + Math.random()*2.5;
-    s.style.cssText = `
+      // Keyboard support
+      document.addEventListener("keydown", (e) => {
+        if (
+          document.getElementById("lock-screen").classList.contains("unlocking")
+        )
+          return;
+        if (e.key >= "0" && e.key <= "9" && entered.length < 8) {
+          entered += e.key;
+          updateDots();
+          return;
+        }
+        if (e.key === "Backspace") {
+          entered = entered.slice(0, -1);
+          updateDots();
+          errorMsg.textContent = "";
+          return;
+        }
+        if (e.key === "Enter") {
+          return;
+        }
+      });
+
+      function checkPin() {
+        if (entered === CORRECT) {
+          lockIcon.textContent = "🔓";
+          errorMsg.textContent = "✦ Welcome, my love ✦";
+          errorMsg.style.color = "#a5f3fc";
+          setTimeout(unlock, 900);
+        } else {
+          dots.forEach((d) => {
+            d.classList.remove("filled");
+            d.classList.add("error");
+          });
+          errorMsg.textContent = "Incorrect PIN — try again 💕";
+          setTimeout(() => {
+            entered = "";
+            updateDots();
+            errorMsg.textContent = "";
+          }, 1200);
+        }
+      }
+
+      function unlock() {
+        const ls = document.getElementById("lock-screen");
+        ls.classList.add("unlocking");
+        document.getElementById("main-content").classList.add("visible");
+        setTimeout(() => {
+          ls.style.display = "none";
+          launchConfetti();
+        }, 900);
+      }
+
+      /* ── Stars ── */
+      const starsEl = document.getElementById("stars");
+      for (let i = 0; i < 90; i++) {
+        const s = document.createElement("div");
+        s.className = "star";
+        const sz = 0.5 + Math.random() * 2.5;
+        s.style.cssText = `
       width:${sz}px; height:${sz}px;
-      left:${Math.random()*100}%;
-      top:${Math.random()*100}%;
-      animation-duration:${2+Math.random()*5}s;
-      animation-delay:${-Math.random()*6}s;
+      left:${Math.random() * 100}%;
+      top:${Math.random() * 100}%;
+      animation-duration:${2 + Math.random() * 5}s;
+      animation-delay:${-Math.random() * 6}s;
     `;
-    starsEl.appendChild(s);
-  }
+        starsEl.appendChild(s);
+      }
 
-  /* ── Floating hearts ── */
-  const hc = document.getElementById('hearts-container');
-  const heartEmojis = ['💕','💖','💗','💓','🌸','💝','✨','💜','🩷'];
-  function spawnHeart() {
-    const h = document.createElement('div');
-    h.className = 'heart-float';
-    h.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
-    h.style.cssText = `
-      left:${5+Math.random()*90}%;
+      /* ── Floating hearts ── */
+      const hc = document.getElementById("hearts-container");
+      const heartEmojis = [
+        "💕",
+        "💖",
+        "💗",
+        "💓",
+        "🌸",
+        "💝",
+        "✨",
+        "💜",
+        "🩷",
+      ];
+      function spawnHeart() {
+        const h = document.createElement("div");
+        h.className = "heart-float";
+        h.textContent =
+          heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+        h.style.cssText = `
+      left:${5 + Math.random() * 90}%;
       bottom:0;
-      font-size:${1+Math.random()*1.4}rem;
-      animation-duration:${7+Math.random()*10}s;
-      animation-delay:${Math.random()*4}s;
+      font-size:${1 + Math.random() * 1.4}rem;
+      animation-duration:${7 + Math.random() * 10}s;
+      animation-delay:${Math.random() * 4}s;
     `;
-    hc.appendChild(h);
-    setTimeout(() => h.remove(), 18000);
-  }
-  setInterval(spawnHeart, 1100);
+        hc.appendChild(h);
+        setTimeout(() => h.remove(), 18000);
+      }
+      setInterval(spawnHeart, 1100);
 
-  /* ── Countdown ── */
-  const start = new Date('2024-07-15T00:00:00');
-  function updateTimer() {
-    const now = new Date();
-    const diff = now - start;
-    const d = Math.floor(diff/(1000*60*60*24));
-    const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-    const m = Math.floor((diff%(1000*60*60))/(1000*60));
-    const s = Math.floor((diff%( 1000*60))/1000);
-    document.getElementById('c-days').textContent  = d;
-    document.getElementById('c-hours').textContent = String(h).padStart(2,'0');
-    document.getElementById('c-mins').textContent  = String(m).padStart(2,'0');
-    document.getElementById('c-secs').textContent  = String(s).padStart(2,'0');
-  }
-  setInterval(updateTimer, 1000);
-  updateTimer();
+      /* ── Countdown ── */
+      const start = new Date("2024-07-15T00:00:00");
+      function updateTimer() {
+        const now = new Date();
+        const diff = now - start;
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById("c-days").textContent = d;
+        document.getElementById("c-hours").textContent = String(h).padStart(
+          2,
+          "0",
+        );
+        document.getElementById("c-mins").textContent = String(m).padStart(
+          2,
+          "0",
+        );
+        document.getElementById("c-secs").textContent = String(s).padStart(
+          2,
+          "0",
+        );
+      }
+      setInterval(updateTimer, 1000);
+      updateTimer();
 
-  /* ── Confetti burst ── */
-  function launchConfetti() {
-    const colors = ['#f9a8d4','#e879f9','#c084fc','#f472b6','#fbbf24','#fff','#a78bfa'];
-    for (let i = 0; i < 80; i++) {
-      const c = document.createElement('div');
-      c.className = 'confetti-piece';
-      c.style.cssText = `
-        left:${Math.random()*100}vw;
+      /* ── Confetti burst ── */
+      function launchConfetti() {
+        const colors = [
+          "#f9a8d4",
+          "#e879f9",
+          "#c084fc",
+          "#f472b6",
+          "#fbbf24",
+          "#fff",
+          "#a78bfa",
+        ];
+        for (let i = 0; i < 80; i++) {
+          const c = document.createElement("div");
+          c.className = "confetti-piece";
+          c.style.cssText = `
+        left:${Math.random() * 100}vw;
         top:${-10}px;
-        background:${colors[Math.floor(Math.random()*colors.length)]};
-        width:${6+Math.random()*8}px;
-        height:${6+Math.random()*8}px;
-        border-radius:${Math.random()>.5?'50%':'2px'};
-        animation-duration:${1.5+Math.random()*2.5}s;
-        animation-delay:${Math.random()*.8}s;
+        background:${colors[Math.floor(Math.random() * colors.length)]};
+        width:${6 + Math.random() * 8}px;
+        height:${6 + Math.random() * 8}px;
+        border-radius:${Math.random() > 0.5 ? "50%" : "2px"};
+        animation-duration:${1.5 + Math.random() * 2.5}s;
+        animation-delay:${Math.random() * 0.8}s;
       `;
-      document.body.appendChild(c);
-      setTimeout(() => c.remove(), 4000);
-    }
-  }
-</script>
-</body>
+          document.body.appendChild(c);
+          setTimeout(() => c.remove(), 4000);
+        }
+      }
+    </script>
+  </body>
 </html>
