@@ -1436,7 +1436,7 @@
         errorMsg.textContent = "";
       });
 
-      enterBtn.addEventListener("click", unlock);
+      enterBtn.addEventListener("click", submitPin);
 
       // Keyboard support
       document.addEventListener("keydown", (e) => {
@@ -1456,6 +1456,7 @@
           return;
         }
         if (e.key === "Enter") {
+          submitPin();
           return;
         }
       });
