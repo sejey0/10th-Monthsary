@@ -9,6 +9,11 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@500;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="icon"
+      type="image/jpeg"
+      href="assets/images/IMG_20251016_172452_850 (1) (1).jpg"
+    />
     <style>
       :root {
         --pink-light: #fce4ec;
@@ -841,6 +846,97 @@
         font-style: normal;
       }
 
+      /* music player */
+      .music-float {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 20;
+        width: min(92vw, 260px);
+      }
+      .music-player {
+        display: grid;
+        gap: 12px;
+      }
+      .music-head {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 10px;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+      .music-title {
+        font-family: "Playfair Display", serif;
+        color: #f9a8d4;
+        font-size: 1.05rem;
+        line-height: 1.2;
+      }
+      .music-track {
+        color: #e9d5ff;
+        font-size: 0.8rem;
+        font-style: italic;
+        margin-top: 4px;
+      }
+      .music-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+      .music-btn {
+        border: 1px solid rgba(249, 168, 212, 0.28);
+        background: linear-gradient(
+          135deg,
+          rgba(233, 30, 140, 0.22),
+          rgba(156, 39, 176, 0.24)
+        );
+        color: #fff;
+        border-radius: 999px;
+        padding: 10px 14px;
+        font-family: "Playfair Display", serif;
+        font-size: 0.82rem;
+        cursor: pointer;
+        transition:
+          transform 0.15s ease,
+          background 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .music-btn:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(233, 30, 140, 0.3),
+          rgba(156, 39, 176, 0.32)
+        );
+        border-color: rgba(249, 168, 212, 0.44);
+      }
+      .music-btn:active {
+        transform: scale(0.98);
+      }
+      .volume-wrap {
+        display: grid;
+        gap: 8px;
+        width: 100%;
+      }
+      .volume-label {
+        color: #d8b4fe;
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .volume-slider {
+        width: 100%;
+        accent-color: #f472b6;
+      }
+      .volume-value {
+        color: #f3d8ff;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+      }
+
+      .music-float .glass-card {
+        padding: 18px 16px;
+      }
+
       /* confetti burst */
       .confetti-piece {
         position: fixed;
@@ -866,6 +962,11 @@
       @media (max-width: 500px) {
         .glass-card {
           padding: 28px 18px;
+        }
+        .music-float {
+          right: 12px;
+          bottom: 12px;
+          width: min(94vw, 220px);
         }
       }
 
@@ -988,6 +1089,38 @@
         <p class="scroll-hint">↓ scroll to explore ↓</p>
       </section>
 
+      <!-- ── MUSIC ── -->
+      <div class="music-float reveal">
+        <div class="glass-card">
+          <div class="music-player">
+            <div class="music-head">
+              <div>
+                <div class="music-track">
+                  Rob Deniel - Star Song
+                </div>
+              </div>
+              <button class="music-btn" id="music-toggle" type="button">
+                Pause
+              </button>
+            </div>
+            <div class="music-controls">
+              <div class="volume-wrap">
+                <div class="volume-label">Volume Mixer</div>
+                <input
+                  class="volume-slider"
+                  id="volume-slider"
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="75"
+                />
+                <div class="volume-value" id="volume-value">75%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Countdown removed per request -->
 
       <!-- ── LOVE MESSAGE ── -->
@@ -1096,6 +1229,11 @@
 
     <!-- ─────────────────── SCRIPTS ─────────────────── -->
     <script>
+      const music = new Audio(
+        "assets/audio/Rob Deniel - Star Song (Official Lyric Video).mp3",
+      );
+      music.loop = true;
+
       /* ── Petals on lock screen ── */
       const petalsContainer = document.getElementById("petals-container");
       const petalColors = [
@@ -1133,6 +1271,41 @@
       const backBtn = document.getElementById("back-btn");
       const mainContent = document.getElementById("main-content");
       const scrollProgress = document.getElementById("scroll-progress");
+      const musicToggle = document.getElementById("music-toggle");
+      const volumeSlider = document.getElementById("volume-slider");
+      const volumeValue = document.getElementById("volume-value");
+
+      music.volume = Number(volumeSlider.value) / 100;
+
+      function updateMusicButton() {
+        musicToggle.textContent = music.paused ? "Play" : "Pause";
+      }
+
+      async function startMusic() {
+        try {
+          await music.play();
+        } catch (error) {
+          updateMusicButton();
+        }
+        updateMusicButton();
+      }
+
+      musicToggle.addEventListener("click", async () => {
+        if (music.paused) {
+          await startMusic();
+        } else {
+          music.pause();
+          updateMusicButton();
+        }
+      });
+
+      volumeSlider.addEventListener("input", () => {
+        const volume = Number(volumeSlider.value) / 100;
+        music.volume = volume;
+        volumeValue.textContent = `${volumeSlider.value}%`;
+      });
+
+      updateMusicButton();
 
       function updateDots() {
         dots.forEach((d, i) => {
@@ -1212,6 +1385,7 @@
         const ls = document.getElementById("lock-screen");
         ls.classList.add("unlocking");
         mainContent.classList.add("visible");
+        startMusic();
         setTimeout(() => {
           ls.style.display = "none";
           launchConfetti();
@@ -1224,6 +1398,9 @@
         mainContent.classList.remove("visible");
         ls.classList.remove("unlocking");
         ls.style.display = "flex";
+        music.pause();
+        music.currentTime = 0;
+        updateMusicButton();
         entered = "";
         updateDots();
         errorMsg.textContent = "";
