@@ -14,6 +14,11 @@
       type="image/jpeg"
       href="assets/images/IMG_20251016_172452_850 (1) (1).jpg"
     />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/images/IMG_20251016_172452_850 (1) (1).jpg"
+    />
     <style>
       :root {
         --pink-light: #fce4ec;
@@ -853,6 +858,7 @@
         bottom: 18px;
         z-index: 20;
         width: min(92vw, 260px);
+        transition: width 0.32s ease, height 0.32s ease, transform 0.5s ease;
       }
       .music-player {
         display: grid;
@@ -937,6 +943,54 @@
         padding: 18px 16px;
       }
 
+      /* minimized / flip state */
+      .music-float.minimized {
+        width: 56px;
+        height: 56px;
+        right: 14px;
+        bottom: 14px;
+      }
+      .music-float.minimized .glass-card {
+        padding: 6px;
+        border-radius: 999px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .music-float .mini-icon {
+        display: none;
+        font-size: 1.05rem;
+        color: #fff;
+      }
+      .music-min-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: rgba(0,0,0,0.28);
+        border: 1px solid rgba(255,255,255,0.12);
+        color: #fff;
+        width: 34px;
+        height: 34px;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        z-index: 30;
+      }
+      .music-float.minimized .music-player > * {
+        display: none !important;
+      }
+      .music-float.minimized .mini-icon {
+        display: block;
+      }
+      .music-float.minimized .music-min-btn {
+        display: flex;
+      }
+
       /* confetti burst */
       .confetti-piece {
         position: fixed;
@@ -966,8 +1020,23 @@
         .music-float {
           right: 12px;
           bottom: 12px;
-          width: min(94vw, 220px);
+          width: min(94vw, 160px);
+          box-shadow: 0 8px 30px rgba(0,0,0,0.45);
         }
+        .music-float .music-track {
+          font-size: 0.72rem;
+        }
+        .music-float .music-btn {
+          padding: 8px 10px;
+          font-size: 0.75rem;
+        }
+        .music-float .volume-label,
+        .music-float .volume-value {
+          display: none;
+        }
+        /* ensure minimized tap target still visible */
+        .music-float.minimized { width:56px; height:56px; }
+        .music-min-btn { display: flex; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -1093,6 +1162,7 @@
       <div class="music-float reveal">
         <div class="glass-card">
           <div class="music-player">
+            <div class="mini-icon">📝</div>
             <div class="music-head">
               <div>
                 <div class="music-track">
@@ -1118,6 +1188,7 @@
               </div>
             </div>
           </div>
+          <button id="music-min-btn" class="music-min-btn" type="button" aria-label="minimize">−</button>
         </div>
       </div>
 
@@ -1306,6 +1377,32 @@
       });
 
       updateMusicButton();
+
+      const musicFloat = document.querySelector(".music-float");
+      function toggleMinimize() {
+        if (!musicFloat) return;
+        musicFloat.classList.toggle("minimized");
+      }
+
+      // mobile: tap the widget (but not its controls) to minimize/restore
+      musicFloat?.addEventListener("click", (e) => {
+        if (window.innerWidth > 500) return;
+        // ignore clicks on controls
+        if (e.target.closest(".music-btn") || e.target.closest("input")) return;
+        toggleMinimize();
+      });
+
+      const musicMinBtn = document.getElementById("music-min-btn");
+      musicMinBtn?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleMinimize();
+        // update button symbol
+        if (musicFloat?.classList.contains("minimized")) {
+          musicMinBtn.textContent = "🔼";
+        } else {
+          musicMinBtn.textContent = "−";
+        }
+      });
 
       function updateDots() {
         dots.forEach((d, i) => {
